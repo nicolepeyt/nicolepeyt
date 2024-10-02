@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+:root {
+    --card-height: 300px;
+    --card-width: calc(var(--card-height) / 1.5);
+}
+
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+    .header {
+        width: 100%;
+        padding: 30px;
+        background-color: #FFE3E9;
+        position: fixed;
+        top: 0;
+        text-align: center;
+        color: #eb447c;
+    }
+
+    .header h2
+    {
+        font-family: "Great Vibes", cursive;
+        font-size: 45px;
+        font-weight: 900;
+        font-style: normal;
+    }
+
+    body {
+
+        font-family: "Cinzel";
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url('bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+    }
+
+    .footer {
+        padding: 10px;
+        width: 100%;
+        background-color: #FFE3E9;
+        position: fixed;
+        bottom: 0;
+        text-align: center;
+        color: #eb447c;
+    }
+
+    /* Flex container for cards */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        /* Allow cards to wrap when the screen is small */
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Card styling */
+    .card {
+        width: var(--card-width);
+        height: var(--card-height);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding: 0 36px;
+        perspective: 2500px;
+        margin: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        /* Scale on hover for a subtle effect */
+    }
+
+    /* Style for the cover image (background) */
+    .cover-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Wrapper around the cover image */
+    .wrapper {
+        transition: all 0.5s;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+    }
+
+    /* Hover effect for the wrapper (3D transform) */
+    .card:hover .wrapper {
+        transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+        box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+        -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Gradient overlay effect for the cover image (top and bottom) */
+    .wrapper::before,
+    .wrapper::after {
+        content: "";
+        opacity: 0;
+        width: 100%;
+        height: 80px;
+        transition: all 0.5s;
+        position: absolute;
+        left: 0;
+    }
+
+    .wrapper::before {
+        top: 0;
+        height: 100%;
+        background-image: linear-gradient(to top,
+                transparent 46%,
+                rgba(12, 13, 19, 0.5) 68%,
+                rgba(12, 13, 19) 97%);
+    }
+
+    .wrapper::after {
+        bottom: 0;
+        opacity: 1;
+        background-image: linear-gradient(to bottom,
+                transparent 46%,
+                rgba(12, 13, 19, 0.5) 68%,
+                rgba(12, 13, 19) 97%);
+    }
+
+    /* On hover, make the gradients fully visible */
+    .card:hover .wrapper::before,
+    .wrapper::after {
+        opacity: 1;
+    }
+
+    .card:hover .wrapper::after {
+        height: 120px;
+    }
+
+    /* Style for the title image */
+    .title {
+        width: 100%;
+        transition: transform 0.5s;
+    }
+
+    .card:hover .title {
+        transform: translate3d(0%, -50px, 100px);
+    }
+
+    /* Style for the character image */
+    .character {
+        width: 100%;
+        opacity: 0;
+        transition: all 0.5s;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .card:hover .character {
+        opacity: 1;
+        transform: translate3d(0%, -30%, 100px);
+    }
+
+    /* Media Queries for responsive design */
+    @media (max-width: 768px) {
+
+        /* Stack cards vertically on small screens */
+        .card {
+            width: 90%;
+            /* Full width on small screens */
+            max-width: 300px;
+            margin: 10px;
+        }
+
+        body {
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        /* Adjust further for very small screens */
+        .card {
+            width: 100%;
+            max-width: 260px;
+        }
+
+        .title {
+            font-size: 14px;
+            /* Smaller text size for very small screens */
+        }
+
+        .character {
+            width: 90%;
+        }
+
+        .wrapper {
+            padding: 10px;
+        }
+    }
+}
